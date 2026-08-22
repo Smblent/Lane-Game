@@ -1,0 +1,110 @@
+/* Reset & Fullscreen */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none; /* Prevents highlight on tap */
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background: #0a0f1e; /* Dark space background */
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    touch-action: none; /* Crucial: Prevents browser zoom/swipe on canvas */
+}
+
+#game-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#gameCanvas {
+    display: block;
+    background: #141a2b;
+    /* Maintain aspect ratio; we will scale dynamically via JS */
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated; /* Keeps graphics crisp */
+}
+
+/* UI Overlay - Centered */
+#ui-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows touches to pass to canvas unless a menu is active */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#death-screen {
+    pointer-events: auto; /* Enable buttons */
+    background: rgba(0, 0, 0, 0.85);
+    padding: 2rem 3rem;
+    border-radius: 20px;
+    text-align: center;
+    border: 2px solid #ff4757;
+    box-shadow: 0 0 40px rgba(255, 71, 87, 0.3);
+    backdrop-filter: blur(4px);
+    min-width: 280px;
+}
+
+#death-screen h1 {
+    color: #ff4757;
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#death-screen p {
+    color: #ffffff;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+#death-screen span {
+    color: #ffd93d;
+    font-weight: bold;
+    font-size: 1.8rem;
+}
+
+#death-screen button {
+    display: block;
+    width: 100%;
+    padding: 14px 10px;
+    margin: 10px 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#death-screen button:active {
+    transform: scale(0.95);
+}
+
+#revive-btn {
+    background: #ffd93d;
+    color: #1e1e1e;
+    box-shadow: 0 4px 0 #b38f1c;
+}
+
+#restart-btn {
+    background: #2f3542;
+    color: #ffffff;
+    box-shadow: 0 4px 0 #1a1d24;
+}
