@@ -1,0 +1,62 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ] # Triggers whenever you push code to these branches
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Checkout your JavaScript game code
+    - name: Checkout Source Code
+      uses: actions/checkout@v4
+
+    # 2. Setup Node.js environment
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-size: 20
+        cache: 'npm'
+
+    # 3. Setup Java (Required to compile Android apps)
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+
+    # 4. Install your game's dependencies and Capacitor
+    - name: Install Dependencies
+      run: |
+        npm install
+        npm install @capacitor/core @capacitor/cli @capacitor/android
+
+    # 5. Initialize Capacitor configuration (Creates web directory if missing)
+    - name: Initialize Capacitor Config
+      run: |
+        npx cap init "My Game" "com.example.mygame" --web-dir=www
+
+    # 6. Add the Android platform platform to the project
+    - name: Add Android Platform
+      run: npx cap add android
+
+    # 7. Sync your .js and web files into the Android app container
+    - name: Sync Web Assets to Android
+      run: npx cap sync android
+
+    # 8. Build the actual Android APK file
+    - name: Build Android App (APK)
+      run: |
+        cd android
+        ./gradlew assembleDebug
+
+    # 9. Upload the final .apk file so you can download it to your phone/emulator
+    - name: Upload Android APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-game-apk
+        path: android/app/build/outputs/apk/debug/app-debug.apk
