@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Pathfinder</title>
+    <!-- Capacitor/Cordova Hook -->
+    <script type="text/javascript" src="cordova.js"></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Game Canvas Container -->
+    <div id="game-wrapper">
+        <canvas id="gameCanvas"></canvas>
+    </div>
+    
+    <!-- UI Overlay (for ads/revive) -->
+    <div id="ui-overlay">
+        <div id="death-screen" style="display: none;">
+            <h1>CRASHED</h1>
+            <p>Score: <span id="final-score">0</span></p>
+            <button id="revive-btn">Watch Ad to Revive</button>
+            <button id="restart-btn">Restart</button>
+        </div>
+    </div>
+
+    <!-- Game Script -->
+    <script type="text/javascript" src="game.js"></script>
+</body>
+</html>
